@@ -2,14 +2,14 @@
 const dbConnect = require("../config/dbConfig");
 
 // Defining route handler for POST requests to add tasks
-const addTasks = (req, res) => {
+const addTasks = async (req, res) => {
   try {
     const task = req.body.task;
 
-    // SQL query to Insert record from a 'ToDo' table in the database
+    // SQL query to Insert a record into the 'ToDo' table in the database
     const addTask = `INSERT INTO ToDo (task) VALUES (?)`;
 
-    // Executing SQL query and handling the result
+    // Executing the SQL query and handling the result
     dbConnect.query(addTask, [task], (error, result) => {
       if (error) {
         console.log("Task Insertion Failed", error);
@@ -51,16 +51,22 @@ const deleteTasks = async (req, res) => {
 
     // Use a SQL query to delete the task with the given ID
     const deleteTask = `DELETE FROM Todo WHERE TaskId = (?)`;
-    
+
     // Executing SQL query and handling the result
-    dbConnect.query (deleteTask, [taskId]);
-    console.log("Task Deleted Successfully");
-    res.status(200).json({ message: "Task Deleted Successfully"});
+    dbConnect.query(deleteTask, [taskId], (error, result) => {
+      if (error) {
+        console.log("Task Deletion Failed", error);
+        res.status(500).json({ error: "Task Deletion Failed" });
+      } else {
+        console.log("Task Deleted Successfully");
+        res.status(200).json({ message: "Task Deleted Successfully" });
+      }
+    });
   } catch (error) {
-    console.log("Task Deletion Failed", error);
-    res.status(500).json({ error: "Task Deletion Failed" });
+    console.error("Error in deleting a task:", error);
+    res.status(500).json({ error: "An error occurred while deleting a task" });
   }
 };
 
-// Exporting the route handler function
+// Exporting the route handler functions
 module.exports = { getTasks, addTasks, deleteTasks };

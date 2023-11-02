@@ -2,31 +2,29 @@ import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
 function AddTask() {
-  // Initialize state to store user input and task list
-  const [taskInput, setTaskInput] = useState({ task: "" }); // State for input data
-  const [taskItemList, setTaskItemList] = useState([]); // State for the list of tasks
+  // State to store user input and task list
+  const [taskInput, setTaskInput] = useState({ task: "" }); // Input data
+  const [taskItemList, setTaskItemList] = useState([]); // List of tasks
+
+  useEffect(() => {
+    // Fetch the task list from the server when the component mounts
+    getData();
+  }, []); // Empty dependency array ensures `getData` runs only once on starting
 
   // Fetching the Task List from the storage,  Default GET Method
   const getData = async () => {
     try {
       const result = await fetch("http://localhost:4000/get-task");
       const data = await result.json(); // Converting the data into JSON
-      // console.log(data);
       setTaskItemList(data.data); // Update the task list with the retrieved data
-      // console.log(taskItemList);
     } catch (error) {
-      console.log("Error in getting Tasks", error);
+      console.log("Error in getting tasks", error);
     }
   };
 
-  // Using the `useEffect` to call `getData` when the component/app starts
-  useEffect(() => {
-    getData();
-  }, []); // Empty dependency array ensures `getData` runs only once on starting
-
   // Handling the form submission when the "Add Task" button is clicked
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent the default form submission behavior
+    e.preventDefault();
 
     try {
       // Sending the input data to the backend via a POST request
@@ -37,13 +35,14 @@ function AddTask() {
       });
 
       if (res.status === 201) {
-        // alert("Task Added !");
-        toast.success("Task Added !"); // Display a success toast message
-        setTaskInput({ task: " " }); // Clear the input field after the task is added
-        setTaskItemList([...taskItemList, taskInput]); // After adding the task, update the task list
+        // Display a success toast message
+        toast.success("Task Added!");
 
-        getData(); // Fetch updated task list from the server
-        console.log(handleSubmit);
+        // Clear the input field after the task is added
+        setTaskInput({ task: "" });
+
+        // Fetch the updated task list from the server
+        getData();
       }
     } catch (error) {
       console.error("Error in adding task", error);
@@ -59,11 +58,7 @@ function AddTask() {
       });
 
       if (res.status === 200) {
-        // If the deletion is successful, display a success message
         toast.success("Task Deleted!");
-
-        // Update the taskItemList by filtering out the deleted task
-        // setTaskItemList(taskItemList.filter((item) => item.id !== taskId));
         getData();
       }
     } catch (error) {
@@ -97,10 +92,9 @@ function AddTask() {
       </div>
 
       <form
-        action="#"
+        onSubmit={(e) => handleSubmit(e)}
         method="POST"
         className="mx-auto max-w-xl grid grid-cols-1 sm:grid-cols-3 sm:mt-8"
-        onSubmit={(e) => handleSubmit(e)}
       >
         {/* Enter task  */}
         <div className="my-2 block sm:w-36 mt-3 sm:ms-auto sm:my-auto rounded-md bg-pink-500 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm">
@@ -118,7 +112,7 @@ function AddTask() {
             className="block w-full sm:w-auto sm:mx-3 rounded-md border-0 px-3.5 py-2.5 sm:py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 placeholder:text-sm focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
             value={taskInput.task}
             onChange={(e) =>
-              setTaskInput({ ...taskInput, task: e.target.value })
+              setTaskInput({ ...setTaskInput, task: e.target.value })
             }
           />
 
@@ -137,10 +131,12 @@ function AddTask() {
         <div className="mt-10 sm:mt-1">
           <ul className="divide-y divide-gray-100 items-center sm:ms-12">
             {/* Tasks */}
-            {/* {Object.entries(taskItemList).map((item, index) => { */}
-            {taskItemList.map((item, index) => {
+            {taskItemList.map((item) => {
               return (
-                <li key={index} className="flex justify-between gap-x-6 py-5">
+                <li
+                  key={item.taskID}
+                  className="flex justify-between gap-x-6 py-5"
+                >
                   <div className="flex min-w-0 gap-x-4">
                     <div className="min-w-0 flex-auto">
                       <p className="text-lg font-semibold leading-6 text-gray-900">
