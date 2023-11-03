@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
-function AddTask() {
+function ToDo() {
   // State to store user input and task list
   const [taskInput, setTaskInput] = useState({ task: "" }); // Input data
   const [taskItemList, setTaskItemList] = useState([]); // List of tasks
@@ -34,7 +34,8 @@ function AddTask() {
         body: JSON.stringify(taskInput),
       });
 
-      if (res.status === 201) {
+      console.log(res.status);
+      if (res.status === 200) {
         // Display a success toast message
         toast.success("Task Added!");
 
@@ -111,8 +112,7 @@ function AddTask() {
             placeholder="Go to market"
             className="block w-full sm:w-auto sm:mx-3 rounded-md border-0 px-3.5 py-2.5 sm:py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 placeholder:text-sm focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
             value={taskInput.task}
-            onChange={
-              (e) => 
+            onChange={(e) =>
               // setTaskInput({ ...setTaskInput, task: e.target.value })
               setTaskInput({ task: e.target.value })
             }
@@ -178,4 +178,4 @@ function AddTask() {
 }
 
 // Exporting the component
-export default AddTask;
+export default ToDo;

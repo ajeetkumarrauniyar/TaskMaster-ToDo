@@ -6,7 +6,7 @@ const cors = require("cors"); // Cross-Origin Resource Sharing for triggering th
 // Creating an Express application
 const app = express();
 
-// Setting up the server port, default to 4000
+// Setting up the server port, default to 5000
 const PORT = process.env.PORT || 5000;
 
 // Body parsing middleware for incoming JSON requests

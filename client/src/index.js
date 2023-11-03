@@ -1,14 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import AddTask from './App';
+import ToDo from './ToDo';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-      <AddTask />
-  </React.StrictMode>
+      <ToDo />
 );
 
 // If you want to start measuring performance in your app, pass a function
