@@ -11,7 +11,6 @@ const PORT = process.env.PORT || 5000;
 
 // Body parsing middleware for incoming JSON requests
 app.use(express.json());
-
 // Setting up CORS middleware to handle cross-origin requests
 app.use(cors());
 

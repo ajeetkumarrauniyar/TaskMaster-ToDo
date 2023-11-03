@@ -6,11 +6,6 @@ function AddTask() {
   const [taskInput, setTaskInput] = useState({ task: "" }); // Input data
   const [taskItemList, setTaskItemList] = useState([]); // List of tasks
 
-  useEffect(() => {
-    // Fetch the task list from the server when the component mounts
-    getData();
-  }, []); // Empty dependency array ensures `getData` runs only once on starting
-
   // Fetching the Task List from the storage,  Default GET Method
   const getData = async () => {
     try {
@@ -22,11 +17,16 @@ function AddTask() {
     }
   };
 
+  useEffect(() => {
+    // Fetch the task list from the server when the component mounts
+    getData();
+  }, []); // Empty dependency array ensures `getData` runs only once on starting
+
   // Handling the form submission when the "Add Task" button is clicked
   const handleSubmit = async (e) => {
-    e.preventDefault();
-
     try {
+      e.preventDefault();
+
       // Sending the input data to the backend via a POST request
       const res = await fetch("http://localhost:4000/add-task", {
         method: "POST",
@@ -39,9 +39,9 @@ function AddTask() {
         toast.success("Task Added!");
 
         // Clear the input field after the task is added
-        setTaskInput({ task: "" });
+        setTaskInput({ task: "" }); // Reset the input state
 
-        // Fetch the updated task list from the server
+        // Fetch the updated task list from the database
         getData();
       }
     } catch (error) {
@@ -111,8 +111,9 @@ function AddTask() {
             placeholder="Go to market"
             className="block w-full sm:w-auto sm:mx-3 rounded-md border-0 px-3.5 py-2.5 sm:py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 placeholder:text-sm focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
             value={taskInput.task}
-            onChange={(e) =>
-              setTaskInput({ ...setTaskInput, task: e.target.value })
+            onChange={
+              (e) => setTaskInput({ ...setTaskInput, task: e.target.value })
+              // setTaskInput({ task: e.target.value })
             }
           />
 
