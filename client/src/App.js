@@ -33,11 +33,11 @@ function AddTask() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(taskInput),
       });
-
-      if (res.status === 201) {
+      console.log(res.status);
+      if (res.status === 200) {
         // Display a success toast message
         toast.success("Task Added!");
-
+        console.log('Task Added!');
         // Clear the input field after the task is added
         setTaskInput({ task: "" }); // Reset the input state
 
