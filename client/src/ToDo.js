@@ -59,7 +59,7 @@ function ToDo() {
       });
 
       if (res.status === 200) {
-        toast.success("Task Deleted!");
+        toast.error("Task Deleted!");
         getData();
       }
     } catch (error) {
