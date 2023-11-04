@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 04, 2023 at 01:10 AM
+-- Generation Time: Nov 04, 2023 at 03:48 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -281,7 +281,7 @@ CREATE TABLE `pma__userconfig` (
 --
 
 INSERT INTO `pma__userconfig` (`username`, `timevalue`, `config_data`) VALUES
-('root', '2023-11-04 00:09:32', '{\"Console\\/Mode\":\"collapse\"}');
+('root', '2023-11-04 02:47:32', '{\"Console\\/Mode\":\"collapse\"}');
 
 -- --------------------------------------------------------
 
@@ -450,7 +450,7 @@ ALTER TABLE `pma__column_info`
 -- AUTO_INCREMENT for table `pma__export_templates`
 --
 ALTER TABLE `pma__export_templates`
-  MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `pma__history`
@@ -495,7 +495,9 @@ INSERT INTO `ToDo` (`taskID`, `task`) VALUES
 (2, 'Integrate Contact Form'),
 (3, 'Implement User Authentication'),
 (4, 'Implement Payment Gateway'),
-(5, 'Create Interactive Product Carousel');
+(5, 'Create Interactive Product Carousel'),
+(7, 'Built Successful'),
+(8, 'Client Deployed');
 
 --
 -- Indexes for dumped tables
@@ -515,7 +517,7 @@ ALTER TABLE `ToDo`
 -- AUTO_INCREMENT for table `ToDo`
 --
 ALTER TABLE `ToDo`
-  MODIFY `taskID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `taskID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
